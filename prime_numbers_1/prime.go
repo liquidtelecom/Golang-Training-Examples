@@ -21,7 +21,7 @@ func FindPrime(Min, Max int) []int {
 		IsPrime = true
 		// Since anything divided by a number greater than half of itself is always going to produce
 		// a non-zero remainder - we can run the loop to half of our input number
-		for j := 2; j < i/2; j++ {
+		for j := 2; j <= i/2; j++ {
 			if i%j == 0 {
 				// The moment we find a clean division, we can break out of the inner loop,
 				// after setting the variable to tell us that this isn't a prime number

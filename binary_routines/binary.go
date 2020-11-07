@@ -45,8 +45,8 @@ func LogicalOr(num1, num2 uint16) {
 // for each bit shifted left
 func LeftShift(num1, num2 uint16) {
 	fmt.Printf("Left shifting %d by %d bits\n", num1, num2)
-	fmt.Printf("Binary [%2d]: %016b\n", num1, num1)
-	fmt.Printf("Result [%2d]: %016b\n", num1<<num2, num1<<num2)
+	fmt.Printf("Binary [%3d]: %016b\n", num1, num1)
+	fmt.Printf("Result [%3d]: %016b\n", num1<<num2, num1<<num2)
 }
 
 // RightShift shifts num1 right by the number of places specified in num2
@@ -55,7 +55,7 @@ func LeftShift(num1, num2 uint16) {
 func RightShift(num1, num2 uint16) {
 	fmt.Printf("Right shifting %d by %d bits\n", num1, num2)
 	fmt.Printf("Binary [%2d]: %016b\n", num1, num1)
-	fmt.Printf("Result [%2d]: %016b\n", num2>>num2, num1>>num2)
+	fmt.Printf("Result [%2d]: %016b\n", num1>>num2, num1>>num2)
 }
 
 // TestBit sets to see if a binary bit is set in the given number.  It assumes
@@ -108,7 +108,13 @@ func VaradicOr(input ...int) int {
 // non-zero return.
 func CombinedContains(num1, num2 int) bool {
 	fmt.Printf("Input [%d] [%08b] & [%d] [%08b] == [%d] [%08b] [%v]\n",
-		num1, num1, num2, num2, num1&num2, num1&num2, !(num1&num2 == 0))
+		num1,
+		num1,
+		num2,
+		num2,
+		num1&num2,
+		num1&num2,
+		!(num1&num2 == 0))
 	return !(num1&num2 == 0)
 }
 
@@ -120,7 +126,7 @@ func main() {
 	fmt.Printf("\nLogical OR:\n")
 	LogicalOr(50, 60)
 	fmt.Printf("\nLeft Shift:\n")
-	LeftShift(50, 2)
+	LeftShift(50, 4)
 	fmt.Printf("\nRight Shift:\n")
 	RightShift(50, 2)
 	fmt.Printf("\nBit Testing:\n")
@@ -130,6 +136,7 @@ func main() {
 	_, _ = TestBit(uint8(50), 4)
 	fmt.Printf("\nVaradic OR:\n")
 	res := VaradicOr(1, 2, 4, 8, 16, 32)
+	fmt.Printf("%d\n", res)
 	fmt.Printf("\nCombinedContains [Match]:\n")
 	CombinedContains(res, 4)
 	fmt.Printf("\nCombinedContains [No Match]:\n")
