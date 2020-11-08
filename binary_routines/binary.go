@@ -67,8 +67,8 @@ func RightShift(num1, num2 uint16) {
 func TestBit(num1 interface{}, bit uint8) (bool, error) {
 	switch num1.(type) {
 	case uint8:
-		fmt.Printf("Binary [%3d] [%08b] >> %d == [%3d] %08b [%v]\n",
-			num1, num1, 7-bit, num1.(uint8)>>(7-bit), num1.(uint8)>>(7-bit), (num1.(uint8)>>(7-bit))&1 == 1)
+		fmt.Printf("Binary [%3d] [%08b] >> %d [bit %d] == [%3d] %08b [%v]\n",
+			num1, num1, bit, 7-bit, num1.(uint8)>>(7-bit), num1.(uint8)>>(7-bit), (num1.(uint8)>>(7-bit))&1 == 1)
 		return (num1.(uint8)>>(7-bit))&1 == 1, nil
 	case uint16:
 		fmt.Printf("Binary [%3d] [%08b] >> %d == [%3d] %08b [%v]\n",
@@ -108,13 +108,7 @@ func VaradicOr(input ...int) int {
 // non-zero return.
 func CombinedContains(num1, num2 int) bool {
 	fmt.Printf("Input [%d] [%08b] & [%d] [%08b] == [%d] [%08b] [%v]\n",
-		num1,
-		num1,
-		num2,
-		num2,
-		num1&num2,
-		num1&num2,
-		!(num1&num2 == 0))
+		num1, num1, num2, num2, num1&num2, num1&num2, !(num1&num2 == 0))
 	return !(num1&num2 == 0)
 }
 
