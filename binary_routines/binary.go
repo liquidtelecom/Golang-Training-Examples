@@ -71,16 +71,16 @@ func TestBit(num1 interface{}, bit uint8) (bool, error) {
 			num1, num1, bit, 7-bit, num1.(uint8)>>(7-bit), num1.(uint8)>>(7-bit), (num1.(uint8)>>(7-bit))&1 == 1)
 		return (num1.(uint8)>>(7-bit))&1 == 1, nil
 	case uint16:
-		fmt.Printf("Binary [%3d] [%08b] >> %d == [%3d] %08b [%v]\n",
-			num1, num1, 15-bit, num1.(uint16)>>(15-bit), num1.(uint16)>>(15-bit), (num1.(uint16)>>(15-bit))&1 == 1)
+		fmt.Printf("Binary [%3d] [%08b] >> %d [bit %d]== [%3d] %08b [%v]\n",
+			num1, num1, bit, 15-bit, num1.(uint16)>>(15-bit), num1.(uint16)>>(15-bit), (num1.(uint16)>>(15-bit))&1 == 1)
 		return (num1.(uint16)>>uint16(15-bit))&1 == 1, nil
 	case uint32:
-		fmt.Printf("Binary [%3d] [%08b] >> %d == [%3d] %08b [%v]\n",
-			num1, num1, 31-bit, num1.(uint32)>>(31-bit), num1.(uint32)>>(31-bit), (num1.(uint32)>>(31-bit))&1 == 1)
+		fmt.Printf("Binary [%3d] [%08b] >> %d [bit %d] == [%3d] %08b [%v]\n",
+			num1, num1, bit, 31-bit, num1.(uint32)>>(31-bit), num1.(uint32)>>(31-bit), (num1.(uint32)>>(31-bit))&1 == 1)
 		return (num1.(uint32)>>uint32(31-bit))&1 == 1, nil
 	case uint64:
-		fmt.Printf("Binary [%3d] [%08b] >> %d == [%3d] %08b [%v]\n",
-			num1, num1, 63-bit, num1.(uint64)>>(63-bit), num1.(uint64)>>(63-bit), (num1.(uint64)>>(63-bit))&1 == 1)
+		fmt.Printf("Binary [%3d] [%08b] >> %d [bit %d] == [%3d] %08b [%v]\n",
+			num1, num1, bit, 63-bit, num1.(uint64)>>(63-bit), num1.(uint64)>>(63-bit), (num1.(uint64)>>(63-bit))&1 == 1)
 		return (num1.(uint64)>>uint64(61-bit))&1 == 1, nil
 	default:
 		return false, fmt.Errorf("error, unrecognized type")
