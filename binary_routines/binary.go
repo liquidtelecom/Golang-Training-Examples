@@ -8,18 +8,18 @@ import (
 	"strings"
 )
 
-// LogicalAnd performs a logical AND between num1 and num2 and prints the results.
-// A Logical and states that if two bits are set, the resultant bit will be set,
+// BitwiseAnd performs a bitwise AND between num1 and num2 and prints the results.
+// A bitwise AND states that if two bits are set, the resultant bit will be set,
 // otherwise the resultant bit will be unset.  We use unsigned 16 bit integers here
 // purely to make printing and reading easier
-func LogicalAnd(num1, num2 uint16) {
-	fmt.Printf("Performing Logical AND between %d and %d\n", num1, num2)
+func BitwiseAnd(num1, num2 uint16) {
+	fmt.Printf("Performing Bitwise AND between %d and %d\n", num1, num2)
 	fmt.Printf("Binary [%2d]: %016b\n", num1, num1)
 	fmt.Printf("Binary [%2d]: %016b\n", num2, num2)
 	fmt.Printf("Result [%2d]: %016b\n", num1&num2, num1&num2)
 }
 
-// ExclusiveOr performs a XOR between two numbers and prints the results.
+// ExclusiveOr performs a XOR (Exclusive Or) between two numbers and prints the results.
 // When an exclusive OR is performed, the result will be 0 if both bits are
 // the same (0 ^ 0 = 0, 1 ^ 1 = 0) or 1 if they weren't (0^1 = 1)
 func ExclusiveOr(num1, num2 uint16) {
@@ -29,10 +29,10 @@ func ExclusiveOr(num1, num2 uint16) {
 	fmt.Printf("Result [%2d]: %016b\n", num1^num2, num1^num2)
 }
 
-// LogicalOr performs a Logical OR between two numbers and prints the results.
-// When a logical OR is performed, the result will be 1 if either of the bits
+// BitwiseOr performs a bitwise OR between two numbers and prints the results.
+// When a bitwise OR is performed, the result will be 1 if either of the bits
 // were 1, otherwise the result will be 0
-func LogicalOr(num1, num2 uint16) {
+func BitwiseOr(num1, num2 uint16) {
 	fmt.Printf("Performing Logical OR between %d and %d\n", num1, num2)
 	fmt.Printf("Binary [%2d]: %016b\n", num1, num1)
 	fmt.Printf("Binary [%2d]: %016b\n", num2, num2)
@@ -87,9 +87,9 @@ func TestBit(num1 interface{}, bit uint8) (bool, error) {
 	}
 }
 
-// Varadic OR takes a varadic argument of a number of integers, performs a logical OR against all
+// Variadic OR takes a variadic argument of a number of integers, performs a logical OR against all
 // of those integers and returns the result
-func VaradicOr(input ...int) int {
+func VariadicOr(input ...int) int {
 	var res int
 	// strSlice exists just so we can make a nice output string
 	var strSlice = make([]string, len(input))
@@ -112,13 +112,52 @@ func CombinedContains(num1, num2 int) bool {
 	return !(num1&num2 == 0)
 }
 
+// TestByStaticMask tests a uint8 by performing an AND against a constant.
+// In this particular case we generate the constants using iota, which effectively
+// acts as an incrementer for a shift in the constant declarations
+func TestByStaticMask(num1, bit uint8) bool {
+	// We set bit7 constant as zero and then set the subsequent constants
+	// by 1 shifted left by an incrementing amounts (1 - 7)
+	const (
+		bit7 uint8 = 0
+		bit6 uint8 = 1 << iota
+		bit5
+		bit4
+		bit3
+		bit2
+		bit1
+		bit0
+	)
+
+	switch bit {
+	case 0:
+		return num1&bit0 == bit0
+	case 1:
+		return num1&bit1 == bit1
+	case 2:
+		return num1&bit2 == bit2
+	case 3:
+		return num1&bit3 == bit3
+	case 4:
+		return num1&bit4 == bit4
+	case 5:
+		return num1&bit5 == bit5
+	case 6:
+		return num1&bit6 == bit6
+	case 7:
+		return num1&bit7 == bit7
+	default:
+		return false
+	}
+}
+
 func main() {
 	fmt.Printf("Logical AND:\n")
-	LogicalAnd(50, 60)
+	BitwiseAnd(50, 60)
 	fmt.Printf("\nExclusive OR:\n")
 	ExclusiveOr(50, 60)
 	fmt.Printf("\nLogical OR:\n")
-	LogicalOr(50, 60)
+	BitwiseOr(50, 60)
 	fmt.Printf("\nLeft Shift:\n")
 	LeftShift(50, 4)
 	fmt.Printf("\nRight Shift:\n")
@@ -129,10 +168,15 @@ func main() {
 	_, _ = TestBit(uint8(50), 5)
 	_, _ = TestBit(uint8(50), 4)
 	fmt.Printf("\nVaradic OR:\n")
-	res := VaradicOr(1, 2, 4, 8, 16, 32)
+	res := VariadicOr(1, 2, 4, 8, 16, 32)
 	fmt.Printf("%d\n", res)
 	fmt.Printf("\nCombinedContains [Match]:\n")
 	CombinedContains(res, 4)
 	fmt.Printf("\nCombinedContains [No Match]:\n")
 	CombinedContains(res, 64)
+	fmt.Printf("\nStatic Bitmask testing\n")
+	x := uint8(193)
+	for i := uint8(0); i <= 7; i++ {
+		fmt.Printf("Testing for bit %d in number [%3d] [%08b]: [%v]\n", i, x, x, TestByStaticMask(x, i))
+	}
 }
