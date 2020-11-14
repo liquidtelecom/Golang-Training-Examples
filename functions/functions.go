@@ -26,15 +26,16 @@ func BasicFunctionDualReturn(a, b int) (bool, error) {
 // NestedAnonymous demonstrates the creation of an anonymous function inside a containing function
 // The anonymous function is called by calling the variable name to which the anonymous function
 // is assigned
-func NestedAnonymous(a, b int) {
+func NestedAnonymous(a, b int) (int, int) {
 	Multiply := func(num1, num2 int) int {
 		return num1 * num2
 	}
 	Divide := func(num1, num2 int) int {
 		return num1 / num2
 	}
-	fmt.Printf("Calling Multiply on %d and %d returns %d\n", a, b, Multiply(a, b))
-	fmt.Printf("Calling Divide on %d and %d returns %d\n", a, b, Divide(a, b))
+	retM := Multiply(a, b)
+	retD := Divide(a, b)
+	return retM, retD
 }
 
 // DemoStruct defines a structure that we will tie methods to as a demonstration of how methods
@@ -103,7 +104,8 @@ func main() {
 	}
 
 	fmt.Printf("\nDemonstrating nested anonymous functions\n")
-	NestedAnonymous(10, 5)
+	retM, retD := NestedAnonymous(10, 5)
+	fmt.Printf("Anonymous Multiply: %d\nAnonymous Divide: %d\n", retM, retD)
 
 	fmt.Printf("\nDemonstrating struct methods\n")
 	// First we create a variable of type DemoStruct and fill its elements. Note we are creating a pointer

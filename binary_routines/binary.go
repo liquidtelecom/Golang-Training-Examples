@@ -12,50 +12,55 @@ import (
 // A bitwise AND states that if two bits are set, the resultant bit will be set,
 // otherwise the resultant bit will be unset.  We use unsigned 16 bit integers here
 // purely to make printing and reading easier
-func BitwiseAnd(num1, num2 uint16) {
+func BitwiseAnd(num1, num2 uint16) uint16 {
 	fmt.Printf("Performing Bitwise AND between %d and %d\n", num1, num2)
 	fmt.Printf("Binary [%2d]: %016b\n", num1, num1)
 	fmt.Printf("Binary [%2d]: %016b\n", num2, num2)
 	fmt.Printf("Result [%2d]: %016b\n", num1&num2, num1&num2)
+	return num1 & num2
 }
 
 // ExclusiveOr performs a XOR (Exclusive Or) between two numbers and prints the results.
 // When an exclusive OR is performed, the result will be 0 if both bits are
 // the same (0 ^ 0 = 0, 1 ^ 1 = 0) or 1 if they weren't (0^1 = 1)
-func ExclusiveOr(num1, num2 uint16) {
+func ExclusiveOr(num1, num2 uint16) uint16 {
 	fmt.Printf("Performing Exclusive OR between %d and %d\n", num1, num2)
 	fmt.Printf("Binary [%2d]: %016b\n", num1, num1)
 	fmt.Printf("Binary [%2d]: %016b\n", num2, num2)
 	fmt.Printf("Result [%2d]: %016b\n", num1^num2, num1^num2)
+	return num1 ^ num2
 }
 
 // BitwiseOr performs a bitwise OR between two numbers and prints the results.
 // When a bitwise OR is performed, the result will be 1 if either of the bits
 // were 1, otherwise the result will be 0
-func BitwiseOr(num1, num2 uint16) {
+func BitwiseOr(num1, num2 uint16) uint16 {
 	fmt.Printf("Performing Logical OR between %d and %d\n", num1, num2)
 	fmt.Printf("Binary [%2d]: %016b\n", num1, num1)
 	fmt.Printf("Binary [%2d]: %016b\n", num2, num2)
 	fmt.Printf("Result [%2d]: %016b\n", num1|num2, num1|num2)
+	return num1 | num2
 }
 
 // LeftShift shifts num1 left by the number of places specified in num2
 // A Left Shift shifts all bits to the left by pushing zeros in from the right
 // and dropping the left most bits.  This effectively doubles the num in question
 // for each bit shifted left
-func LeftShift(num1, num2 uint16) {
+func LeftShift(num1, num2 uint16) uint16 {
 	fmt.Printf("Left shifting %d by %d bits\n", num1, num2)
 	fmt.Printf("Binary [%3d]: %016b\n", num1, num1)
 	fmt.Printf("Result [%3d]: %016b\n", num1<<num2, num1<<num2)
+	return num1 << num2
 }
 
 // RightShift shifts num1 right by the number of places specified in num2
 // A Right Shift shifts all bits to the right by pushing zeros in from the left
 // and dropping the right most bits.
-func RightShift(num1, num2 uint16) {
+func RightShift(num1, num2 uint16) uint16 {
 	fmt.Printf("Right shifting %d by %d bits\n", num1, num2)
 	fmt.Printf("Binary [%2d]: %016b\n", num1, num1)
 	fmt.Printf("Result [%2d]: %016b\n", num1>>num2, num1>>num2)
+	return num1 >> num2
 }
 
 // TestBit sets to see if a binary bit is set in the given number.  It assumes
