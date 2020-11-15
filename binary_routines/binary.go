@@ -124,7 +124,7 @@ func TestByStaticMask(num1, bit uint8) bool {
 	// We set bit7 constant as zero and then set the subsequent constants
 	// by 1 shifted left by an incrementing amounts (1 - 7)
 	const (
-		bit7 uint8 = 0
+		bit7 uint8 = 1
 		bit6 uint8 = 1 << iota
 		bit5
 		bit4
