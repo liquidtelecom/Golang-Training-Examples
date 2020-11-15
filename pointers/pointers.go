@@ -47,3 +47,36 @@ func IndexSlicePointer(a *[]uint8, b int) (uint8, error) {
 	}
 	return (*a)[b], nil
 }
+
+func main() {
+	// Various test variables
+	var IntVar int
+	var Uint16Var uint16
+	var Uint32Var uint32 = 0xFFFEFDFC
+	var ByteSlice = []uint8{1, 2, 3, 4}
+	var ByteSlice2 = []uint8{5, 6, 7, 8}
+
+	// Set IntVar by passing the pointer to the PointerNoReturn Function
+	PointerNoReturn(300, 300, &IntVar)
+	fmt.Printf("%d * %d placed in IntVar, result was %d\n", 300, 300, IntVar)
+
+	// Swap the byte order of IntVar
+	Uint16Var = uint16(IntVar)
+	fmt.Printf("Swapping byte order of %0X\n", Uint16Var)
+	PointerByteSwap(&Uint16Var)
+	fmt.Printf("Uint16Var is now %0X\n", Uint16Var)
+
+	x, _ := ReturnByte(Uint32Var, 2)
+	fmt.Printf("Byte 2 of %0X is %0X\n", Uint32Var, x)
+
+	// As a bonus question for discussion - note the byte order of the generated uint32
+	y, _ := ReturnUint32FromSlice([]uint8{1, 2, 3, 4}, 0)
+	fmt.Printf("Uint32 generated from byte slice %v at offset 0 is %0X\n", ByteSlice, y)
+
+	fmt.Printf("Appending %v to %v...\n", ByteSlice, ByteSlice2)
+	ModifySlicePointer(&ByteSlice, ByteSlice2...)
+	fmt.Printf("ByteSlice is now %v\n", ByteSlice)
+
+	ret, _ := IndexSlicePointer(&ByteSlice, 2)
+	fmt.Printf("Byte at position 2 of ByteSlice is %d\n", ret)
+}
