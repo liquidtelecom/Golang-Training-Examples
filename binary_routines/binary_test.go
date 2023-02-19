@@ -136,3 +136,35 @@ func TestMergeInt8Numbers(t *testing.T) {
 		})
 	}
 }
+
+func TestMergeIPAddress(t *testing.T) {
+	type args struct {
+		part1 uint8
+		part2 uint8
+		part3 uint8
+		part4 uint8
+	}
+	tests := []struct {
+		name string
+		args args
+		want uint32
+	}{
+		{
+			name: "127.0.0.1",
+			args: args{
+				part1: 127,
+				part2: 0,
+				part3: 0,
+				part4: 1,
+			},
+			want: 0x7f000001,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MergeIPAddress(tt.args.part1, tt.args.part2, tt.args.part3, tt.args.part4); got != tt.want {
+				t.Errorf("MergeIPAddress() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
