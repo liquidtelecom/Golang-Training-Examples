@@ -92,6 +92,30 @@ func TestBit(num1 interface{}, bit uint8) (bool, error) {
 	}
 }
 
+// MergeInt8Numbers Combines two unsigned 8-bit numbers into 16-bit unsigned number
+// The first number occupies the first 8 bits while the other occupies the rest
+func MergeInt8Numbers(num1, num2 uint8) uint16 {
+	result := uint16(num1) & 0xF << 8
+	fmt.Printf("First Chunk - %016b\n", result)
+	result |= uint16(num2) & 0xF
+	fmt.Printf("Final Chunk - %016b\n", result)
+
+	return result
+}
+
+// MergeIPAddress Merge Parts of an IP address into a single 32bit number
+func MergeIPAddress(part1, part2, part3, part4 uint8) uint32 {
+	ipAddress := uint32(part1) & 0xFF << 24
+	fmt.Printf("After First Chunk  Added- %032b\n", ipAddress)
+	ipAddress |= uint32(part2) & 0xFF << 16
+	fmt.Printf("After Second Chunk  Added- %032b\n", ipAddress)
+	ipAddress |= uint32(part3) & 0xFF << 8
+	fmt.Printf("After Third Chunk  Added- %032b\n", ipAddress)
+	ipAddress |= uint32(part4) & 0xFF
+	fmt.Printf("After Final Chunk  Added- %032b\n", ipAddress)
+	return ipAddress
+}
+
 // Variadic OR takes a variadic argument of a number of integers, performs a logical OR against all
 // of those integers and returns the result
 func VariadicOr(input ...int) int {

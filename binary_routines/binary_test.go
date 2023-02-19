@@ -108,3 +108,63 @@ func TestTestBit(t *testing.T) {
 		}
 	})
 }
+
+func TestMergeInt8Numbers(t *testing.T) {
+	type args struct {
+		num1 uint8
+		num2 uint8
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Test 1",
+			args: args{
+				num1: 10,
+				num2: 10,
+			},
+			want: "0000101000001010",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MergeInt8Numbers(tt.args.num1, tt.args.num2); fmt.Sprintf("%016b", got) != tt.want {
+				t.Errorf("MergeInt8Numbers() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMergeIPAddress(t *testing.T) {
+	type args struct {
+		part1 uint8
+		part2 uint8
+		part3 uint8
+		part4 uint8
+	}
+	tests := []struct {
+		name string
+		args args
+		want uint32
+	}{
+		{
+			name: "127.0.0.1",
+			args: args{
+				part1: 127,
+				part2: 0,
+				part3: 0,
+				part4: 1,
+			},
+			want: 0x7f000001,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MergeIPAddress(tt.args.part1, tt.args.part2, tt.args.part3, tt.args.part4); got != tt.want {
+				t.Errorf("MergeIPAddress() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
