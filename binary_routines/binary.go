@@ -93,11 +93,12 @@ func TestBit(num1 interface{}, bit uint8) (bool, error) {
 }
 
 // MergeInt8Numbers Combines two unsigned 8-bit numbers into 16-bit unsigned number
+// The first number occupies the first 8 bits while the other occupies the rest
 func MergeInt8Numbers(num1, num2 uint8) uint16 {
-	result := uint16(num1) << 8
-	fmt.Printf("First Chunk - %b", result)
-	result |= uint16(num2)
-	fmt.Printf("Final Chunk - %b", result)
+	result := uint16(num1) & 0xF << 8
+	fmt.Printf("First Chunk - %016b\n", result)
+	result |= uint16(num2) & 0xF
+	fmt.Printf("Final Chunk - %016b\n", result)
 
 	return result
 }
