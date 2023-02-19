@@ -108,3 +108,31 @@ func TestTestBit(t *testing.T) {
 		}
 	})
 }
+
+func TestMergeInt8Numbers(t *testing.T) {
+	type args struct {
+		num1 uint8
+		num2 uint8
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Test 1",
+			args: args{
+				num1: 10,
+				num2: 10,
+			},
+			want: "0000101000001010",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MergeInt8Numbers(tt.args.num1, tt.args.num2); fmt.Sprintf("%016b", got) != tt.want {
+				t.Errorf("MergeInt8Numbers() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
